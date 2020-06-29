@@ -45,6 +45,7 @@ if opt == "1":
                 else:
                     print("El archivo " + fp + " no es correcto")
                     print()
+    pause
 
 elif opt == 2:
     ruta = input("Archivo para analizar... ")
@@ -64,6 +65,7 @@ elif opt == 2:
         while n<m:
             print(mylines[n])
             n=n+1    
+    pause
 
 else:
     exit
