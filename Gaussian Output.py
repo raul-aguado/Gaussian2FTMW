@@ -75,6 +75,7 @@ if opt == "2":
                 else:
                     print("Bad termination of " + fp + " file.")
                     print()
+    pause
 
 elif opt == "3":
     ruta = input("File to check... ")
@@ -94,6 +95,7 @@ elif opt == "3":
         while n<m:
             print(mylines[n])
             n=n+1    
+    pause
 
 else:
     exit
