@@ -22,13 +22,14 @@ print(""*2)
 if opt1 == "1":
     ruta = input("Path of .xyz files to prepare... ")
     print()
-    print("\n"*100)
 
     print("           === Task select ===           ")
     print()
-    print("1. Standar DFT calculation")
+    print("1. Standard DFT calculation")
     print("   [B3LYP/6-311++G(d,p)]")
-    print("2. WFN")
+    print("2. Standard MP2 calculation")
+    print("   [MP2/6-311++G(d,p)]")
+    print("3. WFN")
     print()
     print("=========================================")
     print()
@@ -77,7 +78,40 @@ if opt1 == "1":
         
             if ext == ".xyz":
                 ruta_completa = ruta + "/" + fp
-                com = ruta_completa.replace(".xyz", ".txt")
+                com = ruta_completa.replace(".xyz", ".com")
+                com_file = open(com, "w")
+
+                com_file.write("%mem=" + mem + "mb\n")
+                com_file.write("%nproc=" + nproc + "\n")
+                com_file.write("%chk=" + fp.replace(".xyz", ".chk") + "\n")
+                com_file.write("#MP2/6-311++G(d,p) opt freq output=pickett\n")
+                com_file.write(os.linesep)
+                com_file.write(fp + "\n")
+                com_file.write(os.linesep)
+                com_file.write("0 1" + os.linesep)
+                
+                mylines = []
+                with open (ruta_completa, "r") as xyz:
+                    for myline in xyz:
+                        mylines.append(myline)
+                               
+                n = 2
+                m = len(mylines)
+                while n<m:
+                    com_file.write(mylines[n])
+                    n=n+1
+
+                com_file.write(os.linesep*10)
+                com_file.close()
+
+    if opt2 == "3":
+        filepaths = [arch.name for arch in scandir(ruta) if arch.is_file()]
+        for fp in filepaths:
+            ext = os.path.splitext(fp)[-1].lower()
+        
+            if ext == ".xyz":
+                ruta_completa = ruta + "/" + fp
+                com = ruta_completa.replace(".xyz", ".com")
                 com_file = open(com, "w")
 
                 com_file.write("%mem=" + mem + "mb\n")
@@ -100,7 +134,7 @@ if opt1 == "1":
                     com_file.write(mylines[n])
                     n=n+1
 
-                com_file.write(os.linesep)
+                com_file.write(os.linesep*2)
                 com_file.write(fp.replace(".xyz",".wfn") + "\n")
                 com_file.write(os.linesep*10)
                 com_file.close()
