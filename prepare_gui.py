@@ -35,11 +35,17 @@ def prepare_click():
 
         #Actions if MP2 is requested
         if chkbox1.get() == 1:
-                #Create a list with all arch names in path_entry route and look for .xyz extensions
+            n_completed = 0
+
+            #Create a list with all arch names in path_entry route and look for .xyz extensions
             filepaths = [arch.name for arch in scandir(path_entry.get()) if arch.is_file()]
-            for fp in filepaths:
+            for fp in filepaths:               
                 ext = os.path.splitext(fp)[-1].lower()
                 if ext == ".xyz":
+                    #Count the files preparated
+                    n_completed = n_completed +1
+
+                    #Create the .com file
                     full_path = path_entry.get() + "/" + fp
                     com = full_path.replace(".xyz", ".com")
                     com_file = open(com, "w")
@@ -75,6 +81,8 @@ def prepare_click():
 
         #Actions if B3LYP is requested
         elif chkbox2.get() == 1:
+            n_completed = 0
+
                 #Inform that the program is using Empirical Dispersion with B3LYP to obtain better results
             messagebox.showinfo("Info", "Using Empirical Dispersion = GD3")
                 #Create a list with all arch names in path_entry route and look for .xyz extensions
@@ -82,6 +90,9 @@ def prepare_click():
             for fp in filepaths:
                 ext = os.path.splitext(fp)[-1].lower()
                 if ext == ".xyz":
+                    #Count the files preparated
+                    n_completed = n_completed +1
+
                     full_path = path_entry.get() + "/" + fp
                     com = full_path.replace(".xyz", ".com")
                     com_file = open(com, "w")
@@ -116,6 +127,8 @@ def prepare_click():
 
         #Actions if WFN calc is requested
         elif chkbox3.get() == 1:
+            n_completed = 0
+
             #Inform that the program is using B3LYP to obtain results (MP2 is not necessary here)
             messagebox.showinfo("Info", "Using B3LYP to WFN calculation")
                 #Create a list with all arch names in path_entry route and look for .xyz extensions
@@ -123,6 +136,9 @@ def prepare_click():
             for fp in filepaths:
                 ext = os.path.splitext(fp)[-1].lower()
                 if ext == ".xyz":
+                    #Count the files preparated
+                    n_completed = n_completed +1
+
                     full_path = path_entry.get() + "/" + fp
                     com = full_path.replace(".xyz", ".com")
                     com_file = open(com, "w")
@@ -156,6 +172,8 @@ def prepare_click():
                     com_file.write(fp.replace(".xyz",".wfn") + "\n")
                     com_file.write(os.linesep*10)
                     com_file.close()
+
+        messagebox.showinfo("Info", "Completed " + str(n_completed) + " files")
 
 def exit_click():
         raise SystemExit
