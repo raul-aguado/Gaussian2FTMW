@@ -55,13 +55,13 @@ def prepare_click():
                     com_file.write("%chk=" + fp.replace(".xyz", ".chk") + "\n")
 
                     if chkbox5.get() == 1:
-                        base = "6-31G++(d,p)"
+                        base = "6-31++G(d,p)"
                     if chkbox6.get() == 1:
-                        base = "6-311G++(d,p)"
+                        base = "6-311++G(d,p)"
 
-                    com_file.write("#MP2/" + base + " opt freq output=pickett")
+                    com_file.write("#MP2/" + base + " opt freq output=pickett\n")
                     com_file.write(os.linesep)
-                    com_file.write(fp)
+                    com_file.write(fp + "\n")
                     com_file.write(os.linesep)
                     com_file.write("0 1")
                     com_file.write(os.linesep)
@@ -102,12 +102,12 @@ def prepare_click():
                     com_file.write("%chk=" + fp.replace(".xyz", ".chk") + "\n")
 
                     if chkbox5.get() == 1:
-                        base = "6-31G++(d,p)"
+                        base = "6-31++G(d,p)"
                     if chkbox6.get() == 1:
-                        base = "6-311G++(d,p)"
-                    com_file.write("#B3LYP/" + base + " opt Freq EmpiricalDispersion=GD3 output=pickett")
+                        base = "6-311++G(d,p)"
+                    com_file.write("#B3LYP/" + base + " opt Freq EmpiricalDispersion=GD3 output=pickett\n")
                     com_file.write(os.linesep)
-                    com_file.write(fp)
+                    com_file.write(fp + "\n")
                     com_file.write(os.linesep)
                     com_file.write("0 1")
                     com_file.write(os.linesep)
